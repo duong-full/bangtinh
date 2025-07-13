@@ -1,0 +1,53 @@
+<table border="1">
+  <tr>
+    <th>Sản phẩm</th>
+    <th>Số lượng</th>
+    <th>Đơn giá</th>
+    <th>Thành tiền</th>
+  </tr>
+  <tr>
+    <td>
+      <select id="sanpham" onchange="capNhatDonGia()">
+        <option value="">-- Chọn sản phẩm --</option>
+        <option value="Cám Heo Con">Cám Heo Con</option>
+        <option value="Cám Gà Đẻ">Cám Gà Đẻ</option>
+        <option value="Cám Vịt Thịt">Cám Vịt Thịt</option>
+        <option value="Cám Cá">Cám Cá</option>
+        <option value="Cám Gà Thịt">Cám Gà Thịt</option>
+      </select>
+    </td>
+    <td><input type="number" id="soluong" value="1" min="1" oninput="tinhTien()"></td>
+    <td><input type="text" id="dongia" readonly></td>
+    <td><span id="thanhtien">0 đ</span></td>
+  </tr>
+</table>
+
+<script>
+  const bangGia = {
+    "Cám Heo Con": 50000,
+    "Cám Gà Đẻ": 45000,
+    "Cám Vịt Thịt": 42000,
+    "Cám Cá": 60000,
+    "Cám Gà Thịt": 47000
+  };
+
+  function capNhatDonGia() {
+    const tenSP = document.getElementById("sanpham").value;
+    const donGia = bangGia[tenSP] || 0;
+    document.getElementById("dongia").value = donGia.toLocaleString('vi-VN');
+    tinhTien();
+  }
+
+  function tinhTien() {
+    const tenSP = document.getElementById("sanpham").value;
+    const donGia = bangGia[tenSP] || 0;
+    const soLuong = parseFloat(document.getElementById("soluong").value) || 0;
+    const thanhTien = donGia * soLuong;
+    document.getElementById("thanhtien").innerText = thanhTien.toLocaleString('vi-VN') + " đ";
+  }
+
+  // Tự động tính khi mở trang (nếu có giá trị sẵn)
+  window.onload = () => {
+    capNhatDonGia();
+  };
+</script>
